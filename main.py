@@ -21,10 +21,15 @@ def find_passage(game_desc, pid):
 def update(current, game_desc, choice):
     if current == "":
         return current
+    for l in current["links"]:
+        if choice == l["name"]. lower():
+            find_passage(game_desc, l["pid"])
     return current
+          
 
 def render(current):
-    pass
+    print("you are at the " + current["name"])
+    print(current["text"])
 
 def get_input(current):
     choice = input("What would you like to do? (type quit to exit) ")
@@ -38,6 +43,7 @@ def get_input(current):
 def main():
     game_desc = load("adventure.json")
     current = find_passage(game_desc, game_desc["startnode"])
+    print(current["text"])
     choice = ""
 
     while choice != "quit" and current != {}:
